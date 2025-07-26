@@ -19,6 +19,17 @@ export interface FederatedLearningJob {
 	updated_at: string;
 }
 
+export interface AggregatorCandidate {
+	id: string;
+	name: string;
+	algorithm: string;
+	intstance_type: string;
+	estimated_cost: number;
+	expected_accuracy?: number;
+	cpuSpecs: string;
+	memorySpecs: string;
+}
+
 export interface CloudParticipant {
 	id: string;
 	name: string;

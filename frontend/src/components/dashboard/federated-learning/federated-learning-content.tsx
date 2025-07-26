@@ -41,7 +41,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Plus } from "lucide-react";
+import { ConstructionIcon, Plus } from "lucide-react";
 import {
 	Select,
 	SelectContent,
@@ -70,9 +70,11 @@ import {
 	deleteFederatedLearning,
 } from "@/api/federatedLearning";
 import { getAvailableParticipants } from "@/api/participants";
-import { FederatedLearningJob } from "@/types/federated-learning";
+import { AggregatorCandidate, FederatedLearningJob } from "@/types/federated-learning";
 import { Participant } from "@/types/participant";
 import { toast } from "sonner";
+import AggregatorSelection from "../aggregator-selection/aggregator-selection-content";
+import { aggregatorCandidate } from "../mock_data";
 
 // 집계 알고리즘 목록
 const AGGREGATION_ALGORITHMS = [
@@ -118,6 +120,7 @@ const FederatedLearningContent = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [modelFile, setModelFile] = useState<File | null>(null);
 
+	const [aggregatorCandidates, setAggregatorCandidates] = useState<AggregatorCandidate[]>(aggregatorCandidate);
 	// 연합학습 생성 폼
 	const form = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
@@ -200,11 +203,11 @@ const FederatedLearningContent = () => {
 			}
 
 			// API 호출
-			await createFederatedLearning(formData);
+			const response = await createFederatedLearning(formData);
 
 			// 성공 메시지 표시
 			toast.success("연합학습 작업이 생성되었습니다.");
-
+			//setAggregatorCandidates([]);
 			// 폼 초기화 및 다이얼로그 닫기
 			form.reset();
 			setModelFile(null);
@@ -279,7 +282,8 @@ const FederatedLearningContent = () => {
 							연합학습 생성
 						</Button>
 					</DialogTrigger>
-					<DialogContent className="sm:max-w-[600px] max-h-[85vh] overflow-y-auto">
+					{false ? <DialogContent className="sm:max-w-[600px] max-h-[85vh] overflow-y-auto">
+						{/* 삼항연산자 수정 필요 */}
 						<DialogHeader>
 							<DialogTitle>연합학습 생성</DialogTitle>
 							<DialogDescription>
@@ -544,6 +548,9 @@ const FederatedLearningContent = () => {
 							</form>
 						</Form>
 					</DialogContent>
+					: <DialogContent>
+							<AggregatorSelection candidates={aggregatorCandidate} />
+					</DialogContent>} 					
 				</Dialog>
 			</div>
 

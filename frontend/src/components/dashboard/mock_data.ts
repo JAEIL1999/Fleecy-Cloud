@@ -95,3 +95,22 @@ export const recentActivities = [
 		details: "이미지 데이터셋 추가 (2,500개)",
 	},
 ];
+
+export const aggregatorCandidate =  [
+	{id: "1",
+	name: "mock_aggregator1",
+	algorithm: "fedavg",
+	intstance_type: "t2.medium",
+	estimated_cost: 50.10,
+	expected_accuracy: 95.5,
+	cpuSpecs: "2 vCPU",
+	memorySpecs: "4 GB",},
+	{id: "2",
+	name: "mock_aggregator2",
+	algorithm: "fedavg",
+	intstance_type: "t2.medium",
+	estimated_cost: 50.10,
+	expected_accuracy: 95.5,
+	cpuSpecs: "2 vCPU",
+	memorySpecs: "4 GB",},
+]
